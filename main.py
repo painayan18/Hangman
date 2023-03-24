@@ -1,16 +1,70 @@
-# This is a sample Python script.
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+import random
+
+# list of words to randomly choose from
+words = ["python", "java", "ruby", "javascript", "php", "csharp", "swift", "rust"]
+
+# select random word from the list
+word = random.choice(words)
+
+# list to keep track of letters guessed
+guessedLetters = []
+
+# keep count of number of incorrect guesses
+incorrectGuesses = 0
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+# constant to set maximum number of guesses
+MAX_GUESSES = 6
+
+# list of underscore to represent the hidden word
+hiddenWord = ["_"] * len(word)
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+# function to display the state of the game
+def showGamestate():
+    print(" ".join(hiddenWord))
+    print("Guessed letters:", " ".join(guessedLetters))
+    print("Incorrect guesses:", incorrectGuesses)
+    print("")
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+# loop until either:
+# - player guesses the word
+# - player runs out of guesses
+
+
+while "_" in hiddenWord and incorrectGuesses < MAX_GUESSES:
+
+    showGamestate()
+
+    # get player's guess, and convert to lowercase
+    guess = input("Guess a letter: ").lower()
+
+    # check if the letter has already been guessed
+    if guess in guessedLetters:
+        print("You've already guessed that letter! Try again.")
+
+    # check if the guess is in the word
+    elif guess in word:
+        print("Correct!")
+
+        # update the hidden word with the correct guess
+        for i in range(len(word)):
+            if word[i] == guess:
+                hiddenWord[i] = guess.upper()
+
+    # if the letter is not in the word, increment incorrectGuesses variable
+    else:
+        incorrectGuesses += 1
+
+    guessedLetters.append(guess.upper())
+
+# display final state of the game
+showGamestate()
+
+# check if player won or lost
+if "_" not in hiddenWord:
+    print("Congratulations, you guessed the word!")
+else:
+    print("Sorry, you ran out of guesses. The word was", word)
+
