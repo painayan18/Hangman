@@ -1,3 +1,16 @@
+'''
+POSSIBLE UPDATES:
+
+1. Add multiple lists of words, different categories, and let player choose from
+the categories.
+
+2. Create a smart difficulty system, where the max number of guesses changes
+depending on the length of the word.
+
+3. Add a "guess the word" option - player can guess the whole word if they know
+it, and if they get it wrong they lose instantly.
+
+'''
 
 import random
 
